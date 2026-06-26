@@ -1,0 +1,49 @@
+.post-page {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.post-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.post-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.post-header h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.post-header p {
+  color: #7f8c8d;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 600px) {
+  .post-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .post-container {
+    padding: 1.5rem;
+    border-radius: 0;
+  }
+
+  .post-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .post-header p {
+    font-size: 0.95rem;
+  }
+}
