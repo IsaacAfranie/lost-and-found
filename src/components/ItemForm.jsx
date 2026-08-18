@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { CATEGORIES, LOCATIONS, ITEM_TYPE } from '../utils/constants';
 import '../styles/ItemForm.css';
 
-export default function ItemForm() {
+export default function ItemForm({ onSuccess }) {
   const { session, loading: authLoading } = useAuth();
   const [formData, setFormData] = useState({
     type: ITEM_TYPE.LOST,
@@ -33,12 +33,10 @@ export default function ItemForm() {
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Validate file type
       if (!file.type.startsWith('image/')) {
         setError('Please select a valid image file');
         return;
       }
-      // Validate file size (5MB)
       if (file.size > 5 * 1024 * 1024) {
         setError('Image size must be less than 5MB');
         return;
@@ -47,7 +45,6 @@ export default function ItemForm() {
         ...prev,
         image: file,
       }));
-      // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -88,38 +85,41 @@ export default function ItemForm() {
     setSuccess(false);
 
     try {
-      if (!session?.user?.id) {
-        throw new Error('You must be logged in to post an item');
+      const { data: { session: currentSession }, error: sessionError } =
+        await supabase.auth.getSession();
+
+      if (sessionError) throw sessionError;
+
+      const userId = currentSession?.user?.id;
+      if (!userId) {
+        throw new Error('Your session expired. Please sign in again.');
       }
 
-      // Validate required fields
       if (!formData.title.trim()) throw new Error('Title is required');
       if (!formData.contact.trim()) throw new Error('Contact information is required');
 
       let imageUrl = null;
 
-      // Upload image if provided
       if (formData.image) {
         imageUrl = await uploadImage(formData.image, session.user.id);
       }
 
-      // Insert item into database
+      const itemPayload = {
+        type: formData.type,
+        title: formData.title,
+        description: formData.description,
+        category: formData.category,
+        location: formData.location,
+        date_lost: formData.date_lost,
+        image_url: imageUrl,
+        contact: formData.contact,
+        user_id: session.user.id,
+        status: 'open',
+      };
+
       const { data, error } = await supabase
         .from('items')
-        .insert([
-          {
-            type: formData.type,
-            title: formData.title,
-            description: formData.description,
-            category: formData.category,
-            location: formData.location,
-            date_lost: formData.date_lost,
-            image_url: imageUrl,
-            contact: formData.contact,
-            user_id: session.user.id,
-            status: 'open',
-          },
-        ])
+        .insert([itemPayload])
         .select();
 
       if (error) throw error;
@@ -133,13 +133,17 @@ export default function ItemForm() {
         location: LOCATIONS[0],
         date_lost: new Date().toISOString().split('T')[0],
         contact: '',
+        handover_method: HANDOVER_METHODS.ADMIN_OFFICE,
         image: null,
       });
       setImagePreview(null);
       setSuccess(true);
 
-      // Clear success message after 3 seconds
-      setTimeout(() => setSuccess(false), 3000);
+      if (onSuccess) {
+        setTimeout(() => onSuccess(data[0]), 1500);
+      } else {
+        setTimeout(() => setSuccess(false), 3000);
+      }
     } catch (err) {
       console.error('Form submission error:', err);
       setError(err.message || 'Failed to post item. Please try again.');
@@ -151,7 +155,7 @@ export default function ItemForm() {
   return (
     <form className="item-form" onSubmit={handleSubmit}>
       {authLoading && <div className="alert alert-info">Loading...</div>}
-      
+
       <div className="form-section">
         <label className="form-label">Item Type</label>
         <div className="type-toggle">
@@ -217,7 +221,7 @@ export default function ItemForm() {
         </div>
 
         <div className="form-section">
-          <label className="form-label">Location</label>
+          <label className="form-label">Location Last Seen</label>
           <select
             name="location"
             value={formData.location}

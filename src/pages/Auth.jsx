@@ -3,7 +3,7 @@ import { useAuth } from '../hooks/useAuth';
 import { Button, Input } from '../components/ui';
 import '../styles/Auth.css';
 
-export default function Auth() {
+export default function Auth({ onSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -31,7 +31,8 @@ export default function Auth() {
             : 'Sign in successful! Redirecting...'
         );
         setTimeout(() => {
-          window.location.href = '/browse';
+          if (onSuccess) onSuccess();
+          else window.location.hash = 'browse';
         }, 1500);
       }
     } catch (err) {

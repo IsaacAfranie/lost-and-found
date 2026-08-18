@@ -1,7 +1,7 @@
 import ItemForm from '../components/ItemForm';
 import '../styles/Post.css';
 
-export default function Post() {
+export default function Post({ onSuccess }) {
   return (
     <div className="post-page">
       <div className="post-container">
@@ -9,7 +9,7 @@ export default function Post() {
           <h1>Post an Item</h1>
           <p>Help others find their lost items or report what you found</p>
         </div>
-        <ItemForm />
+        <ItemForm onSuccess={onSuccess} />
       </div>
     </div>
   );

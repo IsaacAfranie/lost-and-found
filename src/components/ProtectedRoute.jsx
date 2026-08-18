@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 export function ProtectedRoute({ children }) {
   const { session, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !session) {
+      window.location.hash = 'auth';
+    }
+  }, [loading, session]);
 
   if (loading) {
     return (
@@ -13,12 +19,7 @@ export function ProtectedRoute({ children }) {
   }
 
   if (!session) {
-    return (
-      <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <p>Please sign in to access this page.</p>
-        <a href="/auth">Go to Sign In</a>
-      </div>
-    );
+    return null;
   }
 
   return children;

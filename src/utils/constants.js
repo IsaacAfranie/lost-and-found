@@ -16,6 +16,7 @@ export const LOCATIONS = [
   'Great Hall',
   'Sports Complex',
   'Commercial Area',
+  'Ayeduase',
   'Other',
 ];
 

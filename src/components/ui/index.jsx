@@ -7,14 +7,17 @@ export function Button({ children, onClick, type = 'button', disabled = false, s
       onClick={onClick}
       disabled={disabled}
       style={{
-        padding: '0.5rem 1rem',
-        backgroundColor: '#0066cc',
+        padding: '0.8rem 1rem',
+        backgroundColor: '#10B981',
         color: '#fff',
         border: 'none',
-        borderRadius: '4px',
+        borderRadius: '7px',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        opacity: disabled ? 0.6 : 1,
+        opacity: disabled ? 0.5 : 1,
         fontSize: '1rem',
+        fontWeight: '700',
+        width: '100%',
+        transition: 'background 0.2s',
         ...style,
       }}
     >

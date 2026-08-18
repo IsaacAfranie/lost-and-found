@@ -6,7 +6,18 @@ export function useItems(filters = {}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const type = filters.type || 'all';
+  const category = filters.category || '';
+  const location = filters.location || '';
+  const status = filters.status || 'open';
+  const search = filters.search || '';
+  const startDate = filters.startDate || '';
+  const endDate = filters.endDate || '';
+  const limit = filters.limit || 0;
+
   useEffect(() => {
+    let isSubscribed = true;
+
     const fetchItems = async () => {
       try {
         setLoading(true);
@@ -14,53 +25,66 @@ export function useItems(filters = {}) {
 
         let query = supabase.from('items').select('*');
 
-        // Apply filters
-        if (filters.type && filters.type !== 'all') {
-          query = query.eq('type', filters.type);
+        if (type && type !== 'all') {
+          query = query.eq('type', type);
         }
 
-        if (filters.category) {
-          query = query.eq('category', filters.category);
+        if (category) {
+          query = query.eq('category', category);
         }
 
-        if (filters.location) {
-          query = query.eq('location', filters.location);
+        if (location) {
+          query = query.eq('location', location);
         }
 
-        if (filters.status) {
-          query = query.eq('status', filters.status);
+        if (status) {
+          query = query.eq('status', status);
         }
 
-        if (filters.search) {
+        if (search) {
           query = query.or(
-            `title.ilike.%${filters.search}%,description.ilike.%${filters.search}%`
+            `title.ilike.%${search}%,description.ilike.%${search}%`
           );
         }
 
-        if (filters.startDate) {
-          query = query.gte('date_lost', filters.startDate);
+        if (startDate) {
+          query = query.gte('date_lost', startDate);
         }
 
-        if (filters.endDate) {
-          query = query.lte('date_lost', filters.endDate);
+        if (endDate) {
+          query = query.lte('date_lost', endDate);
         }
 
         query = query.order('created_at', { ascending: false });
 
+        if (limit) {
+          query = query.limit(limit);
+        }
+
         const { data, error } = await query;
+
+        if (!isSubscribed) return;
 
         if (error) throw error;
         setItems(data || []);
       } catch (err) {
-        setError(err.message);
-        setItems([]);
+        if (isSubscribed) {
+          setError(err.message);
+          setItems([]);
+        }
       } finally {
-        setLoading(false);
+        if (isSubscribed) {
+          setLoading(false);
+        }
       }
     };
 
     fetchItems();
-  }, [JSON.stringify(filters)]);
+
+    return () => {
+      isSubscribed = false;
+    };
+  }, [type, category, location, status, search, startDate, endDate, limit]);
 
   return { items, loading, error };
 }

@@ -1,0 +1,101 @@
+/* .category-spotlight-container {
+  margin: 3rem 0;
+}
+
+.spotlight-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.spotlight-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.spotlight-header p {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.categories-spotlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.spotlight-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.spotlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08);
+  border-color: #c7d2fe;
+}
+
+.spotlight-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.spotlight-blue .spotlight-icon-wrapper { background: #eff6ff; }
+.spotlight-purple .spotlight-icon-wrapper { background: #f5f3ff; }
+.spotlight-amber .spotlight-icon-wrapper { background: #fffbeb; }
+.spotlight-emerald .spotlight-icon-wrapper { background: #ecfdf5; }
+.spotlight-rose .spotlight-icon-wrapper { background: #fff1f2; }
+.spotlight-indigo .spotlight-icon-wrapper { background: #eef2ff; }
+
+.spotlight-icon {
+  font-size: 1.6rem;
+}
+
+.spotlight-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.35rem;
+}
+
+.spotlight-desc {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.spotlight-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.spotlight-tag-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  transition: all 0.15s ease;
+}
+
+.spotlight-tag-pill:hover {
+  background: #4f46e5;
+  color: #ffffff;
+} */
