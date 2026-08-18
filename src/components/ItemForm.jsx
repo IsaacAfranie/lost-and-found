@@ -133,7 +133,6 @@ export default function ItemForm({ onSuccess }) {
         location: LOCATIONS[0],
         date_lost: new Date().toISOString().split('T')[0],
         contact: '',
-        handover_method: HANDOVER_METHODS.ADMIN_OFFICE,
         image: null,
       });
       setImagePreview(null);
