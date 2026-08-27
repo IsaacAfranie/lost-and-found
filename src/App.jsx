@@ -98,11 +98,11 @@ export default function App() {
           <ul className="nav-menu">
             <li><a href="#home" className={route.page === 'home' ? 'active' : ''}>Home</a></li>
             <li><a href="#browse" className={route.page === 'browse' ? 'active' : ''}>Browse</a></li>
-            <li><a href="#guide" className={route.page === 'guide' ? 'active' : ''}>Campus Guide</a></li>
+            {/* <li><a href="#guide" className={route.page === 'guide' ? 'active' : ''}>Campus Guide</a></li> */}
             {user ? (
               <>
                 <li><a href="#post" className={route.page === 'post' ? 'active' : ''}>Post Item</a></li>
-                <li><a href="#dashboard" className={route.page === 'dashboard' ? 'active' : ''}>My Activity</a></li>
+                {/* <li><a href="#dashboard" className={route.page === 'dashboard' ? 'active' : ''}>My Activity</a></li> */}
                 <li>
                   <button onClick={handleSignOut} className="nav-button">
                     Sign Out
