@@ -90,9 +90,9 @@ export default function Home({ onItemSelect, onSearch }) {
                 <a href="#browse" className="btn btn-outline">Browse All Items</a>
               </>
             )}
-            <a href="#guide" className="btn btn-outline" style={{ borderStyle: 'dashed' }}>
+            {/* <a href="#guide" className="btn btn-outline" style={{ borderStyle: 'dashed' }}>
               Security &amp; Porter Directory
-            </a>
+            </a> */}
           </div>
         </div>
 

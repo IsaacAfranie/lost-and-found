@@ -1,6 +1,5 @@
 -- =============================================================================
 -- Campus Lost & Found — COMPLETE FRESH SETUP
--- Run this entire file in the Supabase SQL Editor on a NEW project.
 -- =============================================================================
 
 -- ── 1. ITEMS ─────────────────────────────────────────────────────────────────
@@ -223,25 +222,3 @@ using (
   and (storage.foldername(name))[2] = auth.uid()::text
 );
 
--- =============================================================================
--- AFTER RUNNING THE ABOVE:
---
--- 1. Update your .env with THIS project's URL and anon key:
---      VITE_SUPABASE_URL=https://xxxx.supabase.co
---      VITE_SUPABASE_ANON_KEY=eyJ...
---
--- 2. Sign up in the app (#auth), then backfill your profile:
---      insert into profiles (id, email, role)
---      select id, email, 'user' from auth.users
---      on conflict (id) do update set email = excluded.email;
---
--- 3. Make yourself admin:
---      update profiles set role = 'admin' where email = 'your@email.com';
---
--- 4. Set admin contact in .env:
---      VITE_ADMIN_NAME=Campus Lost & Found Office
---      VITE_ADMIN_EMAIL=admin@knust.edu.gh
---      VITE_ADMIN_PHONE=+233...
---
--- 5. Restart dev server: npm run dev
--- =============================================================================
